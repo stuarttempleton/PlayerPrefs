@@ -1,13 +1,41 @@
 # PlayerPrefs
  Simple tool for Godot Engine to add persistent player preferences. It's just a JSON file with data serialized.
 
- ## How To Use This
+ ## Get Set-up
  It's pretty simple. Most projects will only require 3 things:
 
  * Import/Clone/Copy into your project.
  * Add the PlayerPrefs scene to your Project Settings -> AutoLoad
  * Make sure you include *.json in your export profiles.
 
+## Basic Use
+
+Here's how I use PlayerPrefs in Starscan to set window settings:
+```gdscript
+func LoadWindowSettings():
+  OS.window_fullscreen = PlayerPrefs.GetPref("window_fullscreen")
+  if !OS.window_fullscreen:
+    OS.window_size = Vector2(PlayerPrefs.GetPref("window_size").x,PlayerPrefs.GetPref("window_size").y)
+  
+ ```
+ 
+ And I set it like so:
+ ```gdscript
+ func SaveWindowSettings():
+   PlayerPrefs.SetPref("window_fullscreen", OS.window_fullscreen)
+   if !OS.window_fullscreen:
+     PlayerPrefs.SetPref("window_size", {"x":OS.window_size.x,"y":OS.window_size.y})
+  
+ ```
+ 
+ And if if I want to do something specific if we *do* have settings, you can check for the existence of a setting preference:
+ ```gdscript
+ if PlayerPrefs.HasPref("previous_difficulty_code"):
+   default_difficulty = PlayerPrefs.GetPref("previous_difficulty_code")
+   ApplyDifficultyFromCode(default_difficulty)
+ 
+ ```
+ 
  ## Gotchas and Considerations
  
  * This probably doesn't serialize binary data very well.
