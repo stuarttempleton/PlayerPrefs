@@ -13,9 +13,9 @@
 Here's how I use PlayerPrefs in Starscan to set window settings:
 ```gdscript
 func LoadWindowSettings():
-  OS.window_fullscreen = PlayerPrefs.GetPref("window_fullscreen")
+  OS.window_fullscreen = PlayerPrefs.GetPref("window_fullscreen", true)
   if !OS.window_fullscreen:
-    OS.window_size = Vector2(PlayerPrefs.GetPref("window_size").x,PlayerPrefs.GetPref("window_size").y)
+    OS.window_size = Vector2(PlayerPrefs.GetPref("window_size", 1280).x,PlayerPrefs.GetPref("window_size", 720).y)
   
  ```
  
@@ -31,7 +31,7 @@ func LoadWindowSettings():
  And if if I want to do something specific if we *do* have settings, you can check for the existence of a setting preference:
  ```gdscript
  if PlayerPrefs.HasPref("previous_difficulty_code"):
-   default_difficulty = PlayerPrefs.GetPref("previous_difficulty_code")
+   default_difficulty = PlayerPrefs.GetPref("previous_difficulty_code", "DBFF")
    ApplyDifficultyFromCode(default_difficulty)
  
  ```
