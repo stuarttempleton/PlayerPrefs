@@ -13,25 +13,25 @@
 Here's how I use PlayerPrefs in Starscan to set window settings:
 ```gdscript
 func LoadWindowSettings():
-  OS.window_fullscreen = PlayerPrefs.GetPref("window_fullscreen", true)
+  OS.window_fullscreen = PlayerPrefs.get_pref("window_fullscreen", true)
   if !OS.window_fullscreen:
-    OS.window_size = Vector2(PlayerPrefs.GetPref("window_size", 1280).x,PlayerPrefs.GetPref("window_size", 720).y)
+    OS.window_size = Vector2(PlayerPrefs.get_pref("window_size", 1280).x,PlayerPrefs.get_pref("window_size", 720).y)
   
  ```
  
  And I set it like so:
  ```gdscript
  func SaveWindowSettings():
-   PlayerPrefs.SetPref("window_fullscreen", OS.window_fullscreen)
+   PlayerPrefs.set_pref("window_fullscreen", OS.window_fullscreen)
    if !OS.window_fullscreen:
-     PlayerPrefs.SetPref("window_size", {"x":OS.window_size.x,"y":OS.window_size.y})
+     PlayerPrefs.set_pref("window_size", {"x":OS.window_size.x,"y":OS.window_size.y})
   
  ```
  
  And if if I want to do something specific if we *do* have settings, you can check for the existence of a setting preference:
  ```gdscript
- if PlayerPrefs.HasPref("previous_difficulty_code"):
-   default_difficulty = PlayerPrefs.GetPref("previous_difficulty_code", "DBFF")
+ if PlayerPrefs.has_pref("previous_difficulty_code"):
+   default_difficulty = PlayerPrefs.get_pref("previous_difficulty_code", default_difficulty)
    ApplyDifficultyFromCode(default_difficulty)
  
  ```
